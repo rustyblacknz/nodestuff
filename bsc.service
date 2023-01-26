@@ -1,0 +1,11 @@
+[Unit]
+Description=BSC Full Node
+[Service]
+User=bsc
+Type=simple
+WorkingDirectory=/home/bsc
+ExecStart=/bin/bash /home/bsc/startbsc.sh
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=default.target
