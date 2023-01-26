@@ -1,0 +1,11 @@
+[Unit]
+Description=Eth Full Node
+[Service]
+User=eth
+Type=simple
+WorkingDirectory=/home/eth
+ExecStart=/bin/bash /home/eth/starteth.sh
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=default.target
