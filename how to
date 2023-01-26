@@ -1,0 +1,79 @@
+AUTOMATIC NODES
+-------------------------
+
+---
+BSC
+---
+
+apt update && apt upgrade -y
+apt install lz4 aria2 unzip tar xfce4 xrdp xorgxrdp xorg unzip mousepad -y
+cd /lib/systemd/system/
+wget https://github.com/rustyblacknz/nodestuff/blob/main/bsc.service
+useradd -m bsc
+cd /home/bsc/
+wget https://github.com/rustyblacknz/nodestuff/blob/main/geth_linux.zip
+wget https://github.com/rustyblacknz/nodestuff/blob/main/startbsc.sh
+wget https://github.com/rustyblacknz/nodestuff/blob/main/bscconfig.toml
+unzip geth_linux.zip
+chmod +x geth_linux
+chmod +x startbsc.sh
+mkdir mainnet
+cd mainnet
+nohup aria2c -s14 -x14 -k100M https://snapshots.48.club/geth.25018693.tar.lz4 -o geth.tar.lz4
+tar -I lz4 -xvf geth.tar.lz4
+chown -R bsc.bsc /home/bsc/*
+systemctl enable bsc
+systemctl start bsc
+journalctl -u bsc -f
+
+---------------------------------
+
+---
+ETH
+---
+
+apt update && apt upgrade -y
+apt install lz4 aria2 unzip tar xfce4 xrdp xorgxrdp xorg unzip mousepad -y
+cd /lib/systemd/system/
+wget https://github.com/rustyblacknz/nodestuff/blob/main/eth.service
+wget https://github.com/rustyblacknz/nodestuff/blob/main/prysm.service
+useradd -m eth
+cd /home/eth/
+wget https://github.com/rustyblacknz/nodestuff/blob/main/geth.zip
+wget https://cdn-143.megaupload.nz/Zah5AeTcy2/97262c6e-1674526762/ethconfig.toml
+wget https://cdn-128.megaupload.nz/c3ibA3T6yc/b5c61763-1674526802/starteth.sh
+unzip geth.zip
+chmod +x geth
+chmod +x starteth.sh
+mkdir prysm && cd prysm
+curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh 
+chmod +x prysm.sh
+chown -R eth.eth /home/eth/*
+systemctl enable eth
+systemctl start eth
+systemctl enable ethbeacon
+systemctl start ethbeacon
+journalctl -u ethbeacon -f
+journalctl -u eth -f
+
+
+-------------------------------------------------------------------
+BSC stuff   
+
+http:  127.0.0.1:8547
+ws: 127.0.0.1:8548
+IPC:  /home/bsc/mainnet/geth.ipc
+View Log :  journalctl -u bsc -f
+
+-------------------------------------------------------------------
+Eth stuff   
+
+http://127.0.0.1:8549
+ws://127.0.0.1:8550
+IPC:  /home/eth/chain/data/geth.ipc
+View Log :  journalctl -u eth -f
+-------------------------------------------------------------------
+
+
+
+
