@@ -1,0 +1,15 @@
+[Unit]
+Description=Eth Beacon
+[Service]
+User=eth
+Type=simple
+WorkingDirectory=/home/eth/prysm
+ExecStart=/bin/bash /home/eth/prysm/prysm.sh beacon-chain \
+ --checkpoint-sync-url=https://mainnet-checkpoint-sync.attestant.io \
+ --genesis-beacon-api-url=https://mainnet-checkpoint-sync.attestant.io \
+ --execution-endpoint=/home/eth/chain/data/geth.ipc \
+ --accept-terms-of-use
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=default.target
