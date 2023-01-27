@@ -1,0 +1,14 @@
+{
+  "56": {
+    "name": "BSC",
+    "currencySymbol": "BNB",
+    "txType":  "0",
+    "logoColour": "226"
+  },
+  "1": {
+    "name": "Ethereum",
+    "currencySymbol": "Ether",
+    "txType": "0",
+    "logoColour": "32"
+  }
+}
