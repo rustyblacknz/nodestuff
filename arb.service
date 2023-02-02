@@ -1,0 +1,11 @@
+[Unit]
+Description=Arb Full Node
+[Service]
+User=root
+Type=simple
+WorkingDirectory=/home/eth/arbitrum
+ExecStart=/bin/bash /home/eth/arbitrum/startarb.sh
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=default.target
